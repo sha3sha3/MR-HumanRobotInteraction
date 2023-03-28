@@ -7,6 +7,9 @@
 class FROSFloatSubscriber : public FROSBridgeSubscriber {
 
 public:
+
+	float latestValue = 0.0;
+
 	FROSFloatSubscriber(const FString& Topic);
 	~FROSFloatSubscriber();
 	TSharedPtr<FROSBridgeMsg> ParseMessage(TSharedPtr<FJsonObject> JsonObject) const override;

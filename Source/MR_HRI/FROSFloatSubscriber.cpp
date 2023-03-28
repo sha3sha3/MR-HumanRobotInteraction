@@ -19,7 +19,8 @@ void FROSFloatSubscriber::Callback(TSharedPtr<FROSBridgeMsg> Msg)
 {
     TSharedPtr<std_msgs::Float32> FloatMessage = StaticCastSharedPtr<std_msgs::Float32>(Msg);
     // downcast to subclass using StaticCastSharedPtr function
-    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::SanitizeFloat(FloatMessage->GetData()));
+    //GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::SanitizeFloat(FloatMessage->GetData()));
+    latestValue = FloatMessage->GetData();
 
     return;
 }

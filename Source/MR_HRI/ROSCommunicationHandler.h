@@ -1,10 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "ROSBridgeHandler.h"
 #include <Physics/RModel.h>
+#include "FROSJointTrajectorySubscriber.h"
+
 #include "ROSCommunicationHandler.generated.h"
 
 
@@ -19,8 +20,11 @@ public:
 
 	// Pointer to ROSBridge handler for ROS-UE communication
 	TSharedPtr<FROSBridgeHandler> Handler;
-	// Pointer referencing robot model
-	TSharedPtr<ARModel> RoboModelPtr;
+	// Array of pointers to joint trajectory subscribers
+	TArray<TSharedPtr<FROSJointTrajectorySubscriber>> JointTrajectorySubscribers;
+	// Array of pointers to robot models
+	TArray<ARModel> robotModels;
+
 
 	UPROPERTY(EditAnywhere, Category = "ROS Settings")
 	FString ROSBridgeServerIPAddr;
@@ -30,6 +34,12 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "ROS Settings")
 	FString ROSSubscriberTopicName;
+
+	UPROPERTY(EditAnywhere, Category = "ROS Settings")
+	float ROSTrajectoryUpdateFrequency;
+
+	UPROPERTY(EditAnywhere, Category = "ROS Settings")
+	int ROSTrajectoryMaxSteps;
 
 protected:
 	// Called when the game starts or when spawned
