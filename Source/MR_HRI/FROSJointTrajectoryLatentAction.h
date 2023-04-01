@@ -25,6 +25,7 @@ public:
 	int maxSteps_;
 	int stepsCount_;
 
+	// Constructor setting default values for latent action
 	JointTrajectoryLatentAction(TArray<trajectory_msgs::JointTrajectoryPoint> trajectoryPoints, 
 		TArray<FString> jointNames, ARModel* robot, float& deltaTime, float updateFrequency, int maxSteps);
 	~JointTrajectoryLatentAction() {};

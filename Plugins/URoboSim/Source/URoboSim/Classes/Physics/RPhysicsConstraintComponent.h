@@ -229,6 +229,13 @@ class UROBOSIM_API URContinuousConstraintComponent : public URFixedConstraintCom
 
   virtual void SetMotorJointState(float TargetPosition, float TargetJointVelocity) override;
   virtual void SetMotorJointStateInUUnits(float TargetPosition, float TargetJointVelocity) override;
+
+  // Methods added to expose set and get methods to blueprints
+  UFUNCTION(BlueprintCallable, Category = "RobotJoint")
+  virtual void UpdateJointPosition(UPARAM() float Angle);
+  UFUNCTION(BlueprintCallable, Category = "RobotJoint")
+  virtual float RetrieveJointPosition();
+
   virtual void SetJointPosition(float Angle, FHitResult * OutSweepHitResult);
   virtual void SetJointVelocity(float Velocity);
   virtual void SetJointVelocityInUUnits(float Velocity);

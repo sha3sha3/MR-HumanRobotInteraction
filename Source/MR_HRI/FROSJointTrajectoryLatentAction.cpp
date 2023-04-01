@@ -1,6 +1,5 @@
 #include "FROSJointTrajectoryLatentAction.h"
 
-// Constructor setting default values for latent action
 JointTrajectoryLatentAction::JointTrajectoryLatentAction(TArray<trajectory_msgs::JointTrajectoryPoint> trajectoryPoints,
 	TArray<FString> jointNames, ARModel* robot, float& deltaTime, float updateFrequency, int maxSteps) :
 		trajectoryPoints_(trajectoryPoints), 
@@ -17,9 +16,10 @@ JointTrajectoryLatentAction::JointTrajectoryLatentAction(TArray<trajectory_msgs:
 	for (int i = 0; i < jointNames_.Num(); i++) {
 		startingJointConfig_.Add(0.0);
 	}
-	UE_LOG(LogTemp, Log, TEXT("Latent Action issued to execute robot trajectory"));
+	FString logMessage = "Latent Action issued to execute trajectory on " + robot_->GetName();
+	UE_LOG(LogTemp, Log, TEXT("%s"), *logMessage);
 }
-
+ 
 void JointTrajectoryLatentAction::UpdateOperation(FLatentResponse& Response) {
 	// Check if elapsed time is greater than update frequency
 	elapsedTime_ += deltaTime_;
@@ -41,7 +41,6 @@ void JointTrajectoryLatentAction::UpdateOperation(FLatentResponse& Response) {
 			double nextJointPositionStep = startingJointConfig_[jointIdx] + 
 				1.0 / (double) maxSteps_ * ( jointPosition - startingJointConfig_[jointIdx]) * (double) stepsCount_;
 			robot_->GetJoint(jointNames_[jointIdx])->SetJointPosition(nextJointPositionStep, &hit);
-			UE_LOG(LogTemp, Log, TEXT("%f"), nextJointPositionStep);
 			jointIdx++;
 		}
 		// Increase step count and check if it exceeds max value

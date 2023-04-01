@@ -440,6 +440,17 @@ void URPrismaticConstraintComponent::SetJointEffort(float InEffort)
   Parent->AddForce(-InEffort*RotAxis);
 }
 
+// Additional getter needed to retrieve joint position from blueprints
+float URContinuousConstraintComponent::RetrieveJointPosition() {
+    return this->GetJointPosition();
+}
+
+// Additional setter to update joint position from blueprints
+void URContinuousConstraintComponent::UpdateJointPosition(UPARAM() float Angle) {
+    FHitResult hit;
+    this->SetJointPosition(Angle, &hit);
+}
+
 void URContinuousConstraintComponent::SetJointPosition(float Angle, FHitResult * OutSweepHitResult)
 {
   Child->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
